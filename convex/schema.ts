@@ -5,9 +5,8 @@ import { authTables } from "@convex-dev/auth/server";
 const applicationTables = {
   sketches: defineTable({
     title: v.string(),
-    duration: v.optional(v.string()),
+    duration: v.optional(v.number()),
     description: v.optional(v.string()),
-    imageId: v.optional(v.id("_storage")),
     order: v.number(),
   }).index("by_order", ["order"]),
 
@@ -32,10 +31,37 @@ const applicationTables = {
   }).index("by_sketch", ["sketchId"]),
 
   props: defineTable({
-    sketchId: v.id("sketches"),
     name: v.string(),
-    acquired: v.boolean(),
+    status: v.union(v.literal("idea"), v.literal("planned"), v.literal("ready")),
+    responsiblePersonId: v.optional(v.id("teamMembers")),
+    notes: v.optional(v.string()),
+  }),
+
+  propMedia: defineTable({
+    propId: v.id("props"),
+    fileId: v.id("_storage"),
+    fileName: v.string(),
+    fileType: v.string(),
+    width: v.optional(v.number()),
+    height: v.optional(v.number()),
+    createdAt: v.number(),
+  }).index("by_prop", ["propId"]),
+
+  sketchMedia: defineTable({
+    sketchId: v.id("sketches"),
+    fileId: v.id("_storage"),
+    fileName: v.string(),
+    fileType: v.string(),
+    width: v.optional(v.number()),
+    height: v.optional(v.number()),
+    createdAt: v.number(),
   }).index("by_sketch", ["sketchId"]),
+
+  sketchProps: defineTable({
+    sketchId: v.id("sketches"),
+    propId: v.id("props"),
+  }).index("by_sketch", ["sketchId"])
+    .index("by_prop", ["propId"]),
 };
 
 export default defineSchema({
