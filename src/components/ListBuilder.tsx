@@ -76,7 +76,9 @@ export function ListBuilder({
     try {
       await onCreateItem(trimmedName);
       setNewItemName("");
-      inputRef.current?.focus();
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     } catch {
       setError("Failed to create item");
     } finally {

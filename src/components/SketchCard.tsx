@@ -22,7 +22,8 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
   // Fetch characters and props for this sketch
   const characters =
     useQuery(api.characters.list, { sketchId: sketch._id }) || [];
-  const props = useQuery(api.props.listForSketch, { sketchId: sketch._id }) || [];
+  const props =
+    useQuery(api.props.listForSketch, { sketchId: sketch._id }) || [];
   const teamMembers = useQuery(api.teamMembers.list) || [];
 
   // Get assigned actors (characters with assigned team members)
@@ -48,7 +49,7 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <div
         className={cn(
-          "flex items-center border border-border text-sm rounded-md transition-colors bg-card text-card-foreground shadow-sm p-4 gap-4 min-h-28"
+          "flex flex-wrap items-center border border-border text-sm rounded-md transition-colors bg-card text-card-foreground shadow-sm p-4 gap-4 min-h-28"
         )}
       >
         {/* Drag Handle - Always visible, only functional in edit mode */}
@@ -63,10 +64,10 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
           <GripVertical className="size-5 text-muted-foreground" />
         </button>
 
-        <div className="flex flex-1 flex-col gap-2">
+        <div className="flex grow flex-col gap-2">
           <h3 className="text-sm font-medium">{sketch.title}</h3>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 ">
             {/* Actors */}
             {assignedActors.length > 0 && (
               <div className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -87,7 +88,7 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 grow">
           {sketch.duration && <Badge>{sketch.duration} minutes</Badge>}
           <div className="flex gap-2">
             <Button size="sm" variant="outline" asChild>
