@@ -46,51 +46,51 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} {...attributes}>
       <div
         className={cn(
-          "flex flex-wrap items-center border border-border text-sm rounded-md transition-colors bg-card text-card-foreground shadow-sm p-4 gap-4 min-h-28"
+          "flex flex-col sm:flex-row justify-between border border-border text-sm rounded-md transition-colors bg-card text-card-foreground shadow-sm p-4 gap-4 min-h-28"
         )}
       >
-        <div className="flex gap-2">
-        {/* Drag Handle - Always visible, only functional in edit mode */}
-        <button
-          {...listeners}
-          className={cn(
-            "flex shrink-0 items-center justify-center p-1 rounded transition-colors touch-none",
-            "cursor-grab active:cursor-grabbing hover:bg-accent"
-          )}
-          aria-label="Drag to reorder"
-        >
-          <GripVertical className="size-5 text-muted-foreground" />
-        </button>
-
-        <div className="flex flex-col gap-2">
-          <h3 className="text-sm font-medium">{sketch.title}</h3>
-
-          <div className="flex flex-col gap-2 ">
-            {/* Actors */}
-            {assignedActors.length > 0 && (
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Users className="size-3" />
-                <span>{assignedActors.join(", ")}</span>
-              </div>
+        <div className="flex gap-2 items-start">
+          {/* Drag Handle - Always visible, only functional in edit mode */}
+          <button
+            {...listeners}
+            className={cn(
+              "flex shrink-0 items-center justify-center p-1 rounded transition-colors touch-none",
+              "cursor-grab active:cursor-grabbing hover:bg-accent"
             )}
+            aria-label="Drag to reorder"
+          >
+            <GripVertical className="size-5 text-muted-foreground" />
+          </button>
 
-            {/* Props count */}
-            {props.length > 0 && (
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Package className="size-3" />
-                <span>
-                  {props.length} {props.length === 1 ? "prop" : "props"}
-                </span>
-              </div>
-            )}
+          <div className="flex flex-col gap-2">
+            <h3 className="text-sm font-medium">{sketch.title}</h3>
+
+            <div className="flex flex-col gap-2 ">
+              {/* Actors */}
+              {assignedActors.length > 0 && (
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Users className="size-3" />
+                  <span>{assignedActors.join(", ")}</span>
+                </div>
+              )}
+
+              {/* Props count */}
+              {props.length > 0 && (
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Package className="size-3" />
+                  <span>
+                    {props.length} {props.length === 1 ? "prop" : "props"}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        </div>
 
-        <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 grow">
+        <div className="flex sm:flex-col justify-between gap-2 items-center sm:items-end">
           {sketch.duration && <Badge>{sketch.duration} minutes</Badge>}
           <div className="flex gap-2">
             <Button size="sm" variant="outline" asChild>

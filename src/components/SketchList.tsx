@@ -102,7 +102,11 @@ export default function SketchList() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this sketch? This action cannot be undone.")) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this sketch? This action cannot be undone."
+      )
+    ) {
       return;
     }
 
