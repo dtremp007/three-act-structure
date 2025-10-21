@@ -52,6 +52,7 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
           "flex flex-wrap items-center border border-border text-sm rounded-md transition-colors bg-card text-card-foreground shadow-sm p-4 gap-4 min-h-28"
         )}
       >
+        <div className="flex gap-2">
         {/* Drag Handle - Always visible, only functional in edit mode */}
         <button
           {...listeners}
@@ -64,7 +65,7 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
           <GripVertical className="size-5 text-muted-foreground" />
         </button>
 
-        <div className="flex grow flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <h3 className="text-sm font-medium">{sketch.title}</h3>
 
           <div className="flex flex-col gap-2 ">
@@ -86,6 +87,7 @@ export function SketchCard({ sketch, onDelete }: SketchCardProps) {
               </div>
             )}
           </div>
+        </div>
         </div>
 
         <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 grow">
