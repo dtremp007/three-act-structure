@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from "react";
+import { useState, useRef, KeyboardEvent } from "react";
 import { Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -55,6 +55,7 @@ export function ListBuilder({
   const [editingName, setEditingName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleCreate = async () => {
     const trimmedName = newItemName.trim();
@@ -75,6 +76,7 @@ export function ListBuilder({
     try {
       await onCreateItem(trimmedName);
       setNewItemName("");
+      inputRef.current?.focus();
     } catch {
       setError("Failed to create item");
     } finally {
@@ -158,6 +160,7 @@ export function ListBuilder({
           <FieldLabel htmlFor="new-item-input">Add Item</FieldLabel>
           <div className="flex gap-2">
             <Input
+              ref={inputRef}
               id="new-item-input"
               type="text"
               value={newItemName}

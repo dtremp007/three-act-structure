@@ -1,4 +1,4 @@
-import React, { useEffect, useState, KeyboardEvent } from "react";
+import React, { useEffect, useState, useRef, KeyboardEvent } from "react";
 import {
   DndContext,
   closestCenter,
@@ -28,6 +28,7 @@ export default function SketchList() {
   const [items, setItems] = useState(sketches);
   const [newSketchTitle, setNewSketchTitle] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -84,6 +85,7 @@ export default function SketchList() {
       await createSketch({ title: trimmedTitle });
       setNewSketchTitle("");
       toast.success("Sketch created!");
+      inputRef.current?.focus();
     } catch (error) {
       toast.error("Failed to create sketch");
       console.error(error);
@@ -122,6 +124,7 @@ export default function SketchList() {
         {/* Create Sketch Section */}
         <div className="flex gap-2">
           <Input
+            ref={inputRef}
             type="text"
             value={newSketchTitle}
             onChange={(e) => setNewSketchTitle(e.target.value)}
